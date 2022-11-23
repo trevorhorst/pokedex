@@ -90,7 +90,10 @@ class DexWindow(QMainWindow):
     """
     def read_entry(self):
         self.entry_control_widget.setEnabled(False)
-        playsound(self.audio_file)
+        if(os.path.exists(self.audio_file)):
+            playsound(self.audio_file)
+        else:
+            print("Audio file NOT found: {}".format(self.audio_file))
         self.entry_control_widget.setEnabled(True)
 
     """ Decrements the current selected entry 
