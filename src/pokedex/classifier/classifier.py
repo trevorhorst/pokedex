@@ -82,6 +82,21 @@ model.compile(
 
 model.fit(ds_train, epochs=10, verbose=2)
 
+image = tf.keras.preprocessing.image.load_img("testset/venusaur_0.png", target_size=(img_height, img_width), color_mode="grayscale")
+input_arr = tf.keras.preprocessing.image.img_to_array(
+    image
+    )
+input_arr = np.array([input_arr])  # Convert single image to a batch.
+predictions = model.predict(input_arr)
+print(predictions[0])
+score = tf.nn.softmax(predictions[0])
+
+print(
+    "This image most likely belongs to {} with a {:.2f} percent confidence."
+    .format(class_names[np.argmax(score)], 100 * np.max(score))
+)
+
+
 # test_loss, test_acc = model.evaluate(ds_train, verbose=2)
 # 
 # print('\nTest accuracy:', test_acc)
